@@ -1,0 +1,111 @@
+// JavaScript Document
+var site_menu_is_open = false;
+var isCloseSubMenu = false;
+var currentMainID = 0;
+var activeID = 0;
+var currentTextSize = 1;
+function resizeText(multiplier) {
+	if(currentTextSize+multiplier<4 && currentTextSize+multiplier>0){
+		if (document.body.style.fontSize == "") {
+		
+			document.body.style.fontSize = "0.75em";
+		}
+		document.body.style.fontSize = parseFloat(document.body.style.fontSize) + (multiplier * 0.05) + "em";
+		currentTextSize += multiplier;
+	}
+}
+$('.main_menu_root ul li').mouseover(
+	function() {
+		$('.main_menu_root ul li').removeClass('main_menu_root_over');
+		$('.main_menu_root ul li').addClass('main_menu_root_default');
+		
+		$(this).removeClass('main_menu_root_default');
+		$(this).addClass('main_menu_root_over');
+		
+		sub_id = $(this).attr("id").replace("nav", "");
+		showSubMenu(sub_id);
+		isCloseSubMenu = false;
+	}
+);
+$('.main_menu_root ul li').mouseout(
+	function() {
+		if(!$(this).hasClass('selected')){
+			currentMainID = $(this).attr("id").replace("nav", "");
+			isCloseSubMenu = true;
+			if(!hasSubMenu(currentMainID)){
+				$(this).addClass('main_menu_root_default');
+				$(this).removeClass('main_menu_root_over');
+				
+				$('#nav' + activeID).removeClass('main_menu_root_default');
+				$('#nav' + activeID).addClass('main_menu_root_over');
+				showSubMenu(activeID);
+			}else{
+				setTimeout(closeSubMenu,500);
+			}
+			
+		}
+	}
+);
+function closeSubMenu(){
+	if(isCloseSubMenu){
+		$('#nav' + currentMainID).addClass('main_menu_root_default');
+		$('#nav' + currentMainID).removeClass('main_menu_root_over');
+		$('#nav' + activeID).removeClass('main_menu_root_default');
+		$('#nav' + activeID).addClass('main_menu_root_over');
+		$(".main_menu_sub").css("display","none");
+		showSubMenu(activeID);
+	}
+}
+$(".main_menu_sub").mouseover(
+	function() {
+		isCloseSubMenu = false;
+	}
+);
+$(".main_menu_sub").mouseout(
+	function() {
+		isCloseSubMenu = true;
+		setTimeout(closeSubMenu,500);
+	}
+);
+
+$('.div_site_list').click(
+	function(){
+		$('.div_site_list_menu').slideDown('fast',function() {
+    	site_menu_is_open=true;
+  });
+		
+	}
+);
+$('body').click(
+	function(){
+		if(site_menu_is_open){
+			$('.div_site_list_menu').slideUp('fast');
+			site_menu_is_open=false;
+		}
+		
+	}
+);
+function activeSubMenu(id){
+	activeID = id;
+	showSubMenu(id);
+	$('#nav' + activeID).removeClass('main_menu_root_default');
+	$('#nav' + activeID).addClass('main_menu_root_over');
+	$('#nav' + activeID).addClass('selected');
+}
+function showSubMenu(id){
+	if(hasSubMenu(id)){
+		$(".main_menu_sub ul").css("display","none");
+		$("#sub" + id).css("display","block");
+		$(".main_menu_sub").css("display","block");
+		$(".main_menu_sub ul li:last-child a").css("border-right","none");
+	}else{
+		$(".main_menu_sub").css("display","none");
+	}
+}
+function hasSubMenu(id){
+	if($("#sub"+id).html()){
+		return true;
+	}else{
+		return false;
+	}
+}
