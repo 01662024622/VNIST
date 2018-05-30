@@ -1,0 +1,302 @@
+
+h1 {
+    font-size: 14px;
+}
+#header {
+}
+.headright{ width: auto;}
+.container {
+    margin: auto;
+    width: 98%;
+}
+.top-head {
+}
+.searchform {
+    width: 100px;
+}
+.searchinput{ width: 57px;}
+.lang {
+    color: #FFFFFF;
+    left: 460px;
+    top: 55px;
+    z-index: 10000;
+}
+.lang li {
+	background: none repeat scroll 0 0 #FFFFFF;
+    padding: 5px
+}
+ul.contact-filter-result {
+	height: 290px;
+}
+#map_canvas {
+    height: 427px;
+    width: 426px;
+}
+.bottom-head {
+    height: 38px;
+}
+.main-nav li.current a, .main-nav li:hover a {
+    padding: 8px 23px 15px;
+}
+#wrapper {
+}
+.hotline {
+    margin-top: -50px;
+}
+.hotline h1 {
+    font-size: 15px;
+    padding-left: 20px;
+    padding-top: 9px;
+}
+.hotline h1 span {
+    font-size: 28px;
+}
+.flexslider .slides > li {
+}
+.flex-control-nav {
+
+}
+.home-tool {
+    width: 31.5%;
+}
+.home-tool h1 {
+    padding: 15px 15px 25px 10px;
+}
+.home-tool .fl {
+}
+.home-tool-block a {
+    background-position: 15px 5px;
+    background-size: 60px auto;
+    height: 55px;
+    padding-left: 80px;
+    padding-top: 5px;
+}
+.sheduling a {
+    background-position: 35px 5px;
+    padding-left: 100px;
+}
+.quicksearch a {
+}
+.content-slider {
+	height: 220px;
+	overflow: hidden;
+}
+#sub-nav {
+    background: url("images/nav-open.png") no-repeat scroll left top rgba(0, 0, 0, 0);
+    cursor: pointer;
+    display: block;
+    float: left;
+    height: 28px;
+    text-indent: -9999px;
+    width: 25px;
+}
+.home-block {
+    margin: 0 3% 20px 0;
+    min-height: 297px;
+    padding: 1.5%;
+    width: 28%;
+}
+.hotline.fr > ul {
+	left: 5px;
+}
+.sidebar-button.sheduling a {
+	padding-left: 67px;
+}
+.product-page, .contact-page {
+    margin-top: 20px;
+}
+.product-cat-item {
+    margin-right: 2%;
+    margin-top: 35px;
+    min-height: 290px;
+    width: 31%;
+}
+.product-cat-item:nth-of-type(3n) {
+    margin-right: 0;
+}
+.product-cat-item span {
+    background-position: 0 0;
+    background-size: 470px auto;
+    height: 65px;
+    top: -40px;
+    width: 65px;
+}
+.product-cat-item.accumulation span {
+    background-position: -202px 0;
+}
+.product-cat-item.protect span {
+    background-position: -403px 0;
+}
+.product-cat-item.com span {
+    background-position: 0 -126px;
+}
+.product-cat-item.bank span {
+    background-position: -203px -126px;
+}
+.product-cat-item img {
+    width: 100%;
+}
+.home-block.last {
+    margin-right: 0;
+}
+.home-block img {
+    max-width: 96%;
+}
+.home-block.home-news {
+    margin-right: 3%;
+    min-height: 289px;
+    padding: 2%;
+    width: 61.3%;
+}
+.home-tool-block1 a, .home-tool-block2 a, .home-tool-block3 a,
+.home-tool-block1 a span, .home-tool-block2 a span, .home-tool-block3 a span
+{ font-size: 14px !important;}
+.home-news, .home-video {
+    margin-bottom: 0;
+}
+.home-video iframe {
+    width: 100%;
+}
+.inlink select {
+    width: 232px;
+}
+
+.wrap-button {
+    height: 23px;
+    margin-right: 10px;
+}
+#sidebar {
+    display: none;
+    float: left;
+    position: absolute;
+}
+#main-content {
+    position: relative;
+    width: 96%;
+    z-index: 10;
+}
+.form-tool-list li {
+}
+.form-tool-list li.education a:hover, .form-tool-list li.education.active a {
+    background-position: 90px -190px;
+}
+.form-tool-list li.property a {
+    background-position: -180px 20px;
+}
+.form-tool-list li.health a {
+    background-position: -455px 20px;
+}
+.form-tool-list li.health a:hover, .form-tool-list li.health.active a {
+    background-position: -455px -190px;
+}
+.form-tool-list li.inv a:hover, .form-tool-list li.inv.active a {
+    background-position: 80px -180px;
+}
+.form-tool-list li.retirement a {
+    background-position: -710px 20px;
+}
+.form-tool-list li.retirement a:hover, .form-tool-list li.retirement.active a {
+    background-position: -710px -190px;
+}
+.form-tool-list li.acc a {
+    background-position: -112px 20px;
+}
+.form-tool-list li.acc a:hover, .form-tool-list li.acc.active a {
+    background-position: -112px -180px;
+}
+.form-tool-list li.edu a {
+    background-position: -326px 20px;
+}
+.form-tool-list li.edu a:hover, .form-tool-list li.edu.active a {
+    background-position: -326px -180px;
+}
+.form-tool-list li.hel a {
+    background-position: -556px 20px;
+}
+.form-tool-list li.hel a:hover, .form-tool-list li.hel.active a {
+    background-position: -556px -180px;
+}
+.form-tool-list li.pla a {
+    background-position: -755px 20px;
+}
+.form-tool-list li.pla a:hover, .form-tool-list li.pla.active a {
+    background-position: -755px -180px;
+}
+.get-result {
+    cursor: pointer;
+    display: block;
+    margin: auto;
+}
+.tool-suggest .product-grid-item {
+    margin-right: 2%;
+}
+.form-tool-list li.property a:hover, .form-tool-list li.property.active a {
+    background-position: -180px -190px;
+}
+.form-tool-list li a {
+    height: 60px;
+    padding-top: 35px;
+}
+.form-tool-list li.mar a {
+    background-position: -78px 30px;
+    background-size: 700px auto;
+}
+.form-tool-list li.chi a {
+    background-position: -235px 30px;
+    background-size: 700px auto;
+}
+.form-tool-list li.man a {
+    background-position: -400px 30px;
+    background-size: 700px auto;
+}
+.form-tool-list li.ret a {
+    background-position: -535px 30px;
+    background-size: 700px auto;
+}
+.form-tool-list li.mar a:hover, .form-tool-list li.mar.active a {
+    background-position: -78px -110px;
+}
+.form-tool-list li.chi a:hover, .form-tool-list li.chi.active a {
+    background-position: -235px -110px;
+}
+.form-tool-list li.man a:hover, .form-tool-list li.man.active a {
+    background-position: -400px -110px;
+}
+.form-tool-list li.ret a:hover, .form-tool-list li.ret.active a {
+    background-position: -535px -110px;
+}
+.form-tool-list li.sin a:hover, .form-tool-list li.sin.active a {
+    background-position: 82px -110px;
+    background-size: 700px auto;
+}
+.footer-block {
+    padding-right: 2%;
+    width: 23%;
+}
+.footer-block h3 {
+    line-height: 18px;
+    min-height: 36px;
+    padding-top: 15px;
+}
+.footer-block li a {
+    background-position: 0 14px;
+    padding: 10px 0 0 15px;
+}
+.bottom-footer p {
+    padding-top: 12px;
+}
+.footer-nav {
+    padding-top: 35px;
+    float: left;
+}
+.mobi {
+      display: block;
+}
+.mobiR {
+
+    display: none;
+}
+#main-content img {
+
+    max-width: 100%;
+}

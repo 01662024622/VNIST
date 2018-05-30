@@ -1,0 +1,364 @@
+(function ($) { // JavaScript should be compatible with other libraries than jQuery
+  Drupal.behaviors.textResize = { // D7 "Changed Drupal.behaviors to objects having the methods "attach" and "detach"."
+    attach: function(context) {
+      // Which div or page element are we resizing?
+      if (text_resize_scope) { // Admin-specified scope takes precedence.
+        if ($('#'+text_resize_scope).length > 0) {
+          var element_to_resize = $('#'+text_resize_scope); // ID specified by admin
+        }
+        else if ($('.'+text_resize_scope).length > 0) {
+          var element_to_resize = $('.'+text_resize_scope); // CLASS specified by admin
+        }
+        else {
+          var element_to_resize = $(text_resize_scope); // It's just a tag specified by admin
+        }
+      }
+      else { // Look for some default scopes that might exist.
+        if ($('DIV.left-corner').length > 0) {
+          var element_to_resize = $('DIV.left-corner'); // Main body div for Garland
+        }
+        else if ($('#content-inner').length > 0) {
+          var element_to_resize = $('#content-inner'); // Main body div for Zen-based themes
+        }
+        else if ($('#squeeze > #content').length > 0) {
+          var element_to_resize = $('#squeeze > #content'); // Main body div for Zen Classic
+        }
+      }
+      // Set the initial font size if necessary
+      if ($.cookie('text_resize') != null) {
+        element_to_resize.css('font-size', parseFloat($.cookie('text_resize')) + 'px');
+      }
+      if (text_resize_line_height_allow) {
+        // Set the initial line height if necessary
+        if ($.cookie('text_resize_line_height') != null) {
+          element_to_resize.css('line-height', parseFloat($.cookie('text_resize_line_height')) + 'px');
+        }
+      }
+      // Changer links will change the text size when clicked
+      $('a.changer').click(function() {
+        // Set the current font size of the specified section as a variable
+        var currentFontSize = parseFloat(element_to_resize.css('font-size'), 10);
+        // Set the current line-height
+        var current_line_height = parseFloat(element_to_resize.css('line-height'), 10);
+        // javascript lets us choose which link was clicked, by ID
+        if (this.id == 'text_resize_increase') {
+          var new_font_size = currentFontSize * 1.2;
+          if (text_resize_line_height_allow) { var new_line_height = current_line_height * 1.2; }
+          // Allow resizing as long as font size doesn't go above text_resize_maximum.
+          if (new_font_size <= text_resize_maximum) {
+            $.cookie('text_resize', new_font_size, { path: '/' });
+            if (text_resize_line_height_allow) { $.cookie('text_resize_line_height', new_line_height, { path: '/' }); }
+            var allow_change = true;
+          }
+          else {
+            $.cookie('text_resize', text_resize_maximum, { path: '/' });
+            if (text_resize_line_height_allow) { $.cookie('text_resize_line_height', text_resize_line_height_max, { path: '/' }); }
+            var reset_size_max = true;
+          }
+        }
+        else if (this.id == 'text_resize_decrease') {
+          var new_font_size = currentFontSize / 1.2;
+          if (text_resize_line_height_allow) { var new_line_height = current_line_height / 1.2; }
+          if (new_font_size >= text_resize_minimum) {
+            // Allow resizing as long as font size doesn't go below text_resize_minimum.
+            $.cookie('text_resize', new_font_size, { path: '/' });
+            if (text_resize_line_height_allow) { $.cookie('text_resize_line_height', new_line_height, { path: '/' }); }
+            var allow_change = true;
+          }
+          else {
+            // If it goes below text_resize_minimum, just leave it at text_resize_minimum.
+            $.cookie('text_resize', text_resize_minimum, { path: '/' });
+            if (text_resize_line_height_allow) { $.cookie('text_resize_line_height', text_resize_line_height_min, { path: '/' }); }
+            var reset_size_min = true;
+          }
+        }
+        else if (this.id == 'text_resize_reset') {
+          $.cookie('text_resize', null, { path: '/' });
+          if (text_resize_line_height_allow) { $.cookie('text_resize_line_height', null, { path: '/' }); }
+          var reset_size_original = true;
+        }
+        // jQuery lets us set the font size value of the main text div
+        if (allow_change == true) {
+          element_to_resize.css('font-size', new_font_size + 'px'); // Add 'px' onto the end, otherwise ems are used as units by default
+          if (text_resize_line_height_allow) { element_to_resize.css('line-height', new_line_height + 'px'); }
+          return false;
+        }
+        else if (reset_size_min == true) {
+          element_to_resize.css('font-size', text_resize_minimum + 'px');
+          if (text_resize_line_height_allow) { element_to_resize.css('line-height', text_resize_line_height_min + 'px'); }
+          return false;
+        }
+        else if (reset_size_max == true) {
+          element_to_resize.css('font-size', text_resize_maximum + 'px');
+          if (text_resize_line_height_allow) { element_to_resize.css('line-height', text_resize_line_height_max + 'px'); }
+          return false;
+        }
+        else if (reset_size_original == true) {
+          element_to_resize.css('font-size', '');
+          if (text_resize_line_height_allow) { element_to_resize.css('line-height', ''); }
+          return false;
+        }
+      });
+    }
+  };
+})(jQuery);;
+Drupal.TBMegaMenu = Drupal.TBMegaMenu || {};
+
+(function ($) {
+  Drupal.TBMegaMenu.menuInstance = false;
+  Drupal.behaviors.tbMegaMenuAction = {
+    attach: function(context) {
+      $('.tb-megamenu-button').click(function() {
+        if(parseInt($(this).parent().children('.nav-collapse').height())) {
+          $(this).parent().children('.nav-collapse').css({height: 0, overflow: 'hidden'});
+        }
+        else {
+          $(this).parent().children('.nav-collapse').css({height: 'auto', overflow: 'visible'});
+        }
+      });
+      var isTouch = 'ontouchstart' in window && !(/hp-tablet/gi).test(navigator.appVersion);
+      if(!isTouch){
+        $(document).ready(function($){
+          var mm_duration = 0;
+          $('.t3-megamenu').each (function(){
+            if ($(this).data('duration')) {
+              mm_duration = $(this).data('duration');
+            }
+          });
+          var mm_timeout = mm_duration ? 100 + mm_duration : 500;
+          $('.nav > li, li.mega').hover(function(event) {
+            var $this = $(this);
+            if ($this.hasClass ('mega')) {
+              $this.addClass ('animating');
+              clearTimeout ($this.data('animatingTimeout'));
+              $this.data('animatingTimeout', setTimeout(function(){$this.removeClass ('animating')}, mm_timeout));
+              clearTimeout ($this.data('hoverTimeout'));
+              $this.data('hoverTimeout', setTimeout(function(){$this.addClass ('open')}, 100));
+            } else {
+              clearTimeout ($this.data('hoverTimeout'));
+              $this.data('hoverTimeout', 
+              setTimeout(function(){$this.addClass ('open')}, 100));
+            }
+          },
+          function(event) {
+            var $this = $(this);
+            if ($this.hasClass ('mega')) {
+              $this.addClass ('animating');
+              clearTimeout ($this.data('animatingTimeout'));
+              $this.data('animatingTimeout', 
+              setTimeout(function(){$this.removeClass ('animating')}, mm_timeout));
+              clearTimeout ($this.data('hoverTimeout'));
+              $this.data('hoverTimeout', setTimeout(function(){$this.removeClass ('open')}, 100));
+            } else {
+              clearTimeout ($this.data('hoverTimeout'));
+              $this.data('hoverTimeout', 
+              setTimeout(function(){$this.removeClass ('open')}, 100));
+            }
+          });
+        });
+      }
+    }
+  }
+})(jQuery);
+
+;
+Drupal.TBMegaMenu = Drupal.TBMegaMenu || {};
+
+(function ($) {
+  Drupal.TBMegaMenu.createTouchMenu = function(items) {
+      items.children('a').each( function() {
+	var $item = $(this);
+        var tbitem = $(this).parent();
+        $item.click( function(event){
+          if ($item.hasClass('tb-megamenu-clicked')) {
+            var $uri = $item.attr('href');
+            window.location.href = $uri;
+          }
+          else {
+            event.preventDefault();
+            $item.addClass('tb-megamenu-clicked');
+            if(!tbitem.hasClass('open')){	
+              tbitem.addClass('open');
+            }
+          }
+        }).closest('li').mouseleave( function(){
+          $item.removeClass('tb-megamenu-clicked');
+          tbitem.removeClass('open');
+        });
+     });
+     /*
+     items.children('a').children('span.caret').each( function() {
+	var $item = $(this).parent();
+        $item.click(function(event){
+          tbitem = $item.parent();
+          if ($item.hasClass('tb-megamenu-clicked')) {
+            Drupal.TBMegaMenu.eventStopPropagation(event);
+            if(tbitem.hasClass('open')){	
+              tbitem.removeClass('open');
+              $item.removeClass('tb-megamenu-clicked');
+            }
+          }
+          else {
+            Drupal.TBMegaMenu.eventStopPropagation(event);
+            $item.addClass('tb-megamenu-clicked');
+            if(!tbitem.hasClass('open')){	
+              tbitem.addClass('open');
+              $item.removeClass('tb-megamenu-clicked');
+            }
+          }
+        });
+     });
+     */
+  }
+  
+  Drupal.TBMegaMenu.eventStopPropagation = function(event) {
+    if (event.stopPropagation) {
+      event.stopPropagation();
+    }
+    else if (window.event) {
+      window.event.cancelBubble = true;
+    }
+  }  
+  Drupal.behaviors.tbMegaMenuTouchAction = {
+    attach: function(context) {
+      var isTouch = 'ontouchstart' in window && !(/hp-tablet/gi).test(navigator.appVersion);
+      if(isTouch){
+        $('html').addClass('touch');
+        Drupal.TBMegaMenu.createTouchMenu($('.tb-megamenu ul.nav li.mega').has('.dropdown-menu'));
+      }
+    }
+  }
+})(jQuery);
+;
+(function(e){e.fn.meanmenu=function(t){var n={meanMenuTarget:jQuery(this),meanMenuClose:"X",meanMenuCloseSize:"18px",meanMenuOpen:"<span /><span /><span />",meanRevealPosition:"right",meanRevealPositionDistance:"0",meanRevealColour:"",meanRevealHoverColour:"",meanScreenWidth:"480",meanNavPush:"",meanShowChildren:true,meanExpandableChildren:true,meanExpand:"+",meanContract:"-",meanRemoveAttrs:false};var t=e.extend(n,t);currentWidth=window.innerWidth||document.documentElement.clientWidth;return this.each(function(){function g(){if(o=="center"){var e=window.innerWidth||document.documentElement.clientWidth;var t=e/2-22+"px";meanRevealPos="left:"+t+";right:auto;";if(!m){jQuery(".meanmenu-reveal").css("left",t)}else{jQuery(".meanmenu-reveal").animate({left:t})}}}function y(){if(jQuery($navreveal).is(".meanmenu-reveal.meanclose")){$navreveal.html(r)}else{$navreveal.html(s)}}function b(){jQuery(".mean-bar,.mean-push").remove();jQuery("body").removeClass("mean-container");jQuery(e).show();menuOn=false;meanMenuExist=false}function w(){if(currentWidth<=l){meanMenuExist=true;jQuery("body").addClass("mean-container");jQuery(".mean-container").prepend('<div class="mean-bar"><a href="#nav" class="meanmenu-reveal" style="'+meanStyles+'">Show Navigation</a><nav class="mean-nav"></nav></div>');var t=jQuery(e).html();jQuery(".mean-nav").html(t);/*if(v){jQuery("nav.mean-nav *").each(function(){jQuery(this).removeAttr("class");jQuery(this).removeAttr("id")})}*/jQuery(e).before('<div class="mean-push" />');jQuery(".mean-push").css("margin-top",c);jQuery(e).hide();jQuery(".meanmenu-reveal").show();jQuery(h).html(s);$navreveal=jQuery(h);jQuery(".mean-nav ul").hide();if(meanShowChildren){if(meanExpandableChildren){jQuery(".mean-nav ul ul").each(function(){if(jQuery(this).children().length){jQuery(this,"li:first").parent().append('<a class="mean-expand" href="#" style="font-size: '+i+'">'+p+"</a>")}});jQuery(".mean-expand").on("click",function(e){e.preventDefault();if(jQuery(this).hasClass("mean-clicked")){jQuery(this).text(p);jQuery(this).prev("ul").slideUp(300,function(){})}else{jQuery(this).text(d);jQuery(this).prev("ul").slideDown(300,function(){})}jQuery(this).toggleClass("mean-clicked")})}else{jQuery(".mean-nav ul ul").show()}}else{jQuery(".mean-nav ul ul").hide()}jQuery(".mean-nav ul li").last().addClass("mean-last");$navreveal.removeClass("meanclose");jQuery($navreveal).click(function(e){e.preventDefault();if(menuOn==false){$navreveal.css("text-align","center");$navreveal.css("text-indent","0");$navreveal.css("font-size",i);jQuery(".mean-nav ul:first").slideDown();menuOn=true}else{jQuery(".mean-nav ul:first").slideUp();menuOn=false}$navreveal.toggleClass("meanclose");y()})}else{b()}}var e=t.meanMenuTarget;var n=t.meanReveal;var r=t.meanMenuClose;var i=t.meanMenuCloseSize;var s=t.meanMenuOpen;var o=t.meanRevealPosition;var u=t.meanRevealPositionDistance;var a=t.meanRevealColour;var f=t.meanRevealHoverColour;var l=t.meanScreenWidth;var c=t.meanNavPush;var h=".meanmenu-reveal";meanShowChildren=t.meanShowChildren;meanExpandableChildren=t.meanExpandableChildren;var p=t.meanExpand;var d=t.meanContract;var v=t.meanRemoveAttrs;if(navigator.userAgent.match(/iPhone/i)||navigator.userAgent.match(/iPod/i)||navigator.userAgent.match(/iPad/i)||navigator.userAgent.match(/Android/i)||navigator.userAgent.match(/Blackberry/i)||navigator.userAgent.match(/Windows Phone/i)){var m=true}if(navigator.userAgent.match(/MSIE 8/i)||navigator.userAgent.match(/MSIE 7/i)){jQuery("html").css("overflow-y","scroll")}menuOn=false;meanMenuExist=false;if(o=="right"){meanRevealPos="right:"+u+";left:auto;"}if(o=="left"){meanRevealPos="left:"+u+";right:auto;"}g();meanStyles="background:"+a+";color:"+a+";"+meanRevealPos;if(!m){jQuery(window).resize(function(){currentWidth=window.innerWidth||document.documentElement.clientWidth;if(currentWidth>l){b()}else{b()}if(currentWidth<=l){w();g()}else{b()}})}window.onorientationchange=function(){g();currentWidth=window.innerWidth||document.documentElement.clientWidth;if(currentWidth>=l){b()}if(currentWidth<=l){if(meanMenuExist==false){w()}}};w()})}})(jQuery);
+;
+/**
+ * @file
+ * Integrate Mean Menu library with Responsive Menus module.
+ */
+(function ($) {
+  Drupal.behaviors.responsive_menus_mean_menu = {
+    attach: function (context, settings) {
+      settings.responsive_menus = settings.responsive_menus || {};
+      $.each(settings.responsive_menus, function(ind, iteration){
+        if (iteration.responsive_menus_style != 'mean_menu') {
+          return true;
+        }
+        if (!iteration.selectors.length) {
+          return;
+        }
+        // Call meanmenu() with our custom settings.
+        $(iteration.selectors).once('responsive-menus-mean-menu', function() {
+          $(this).meanmenu({
+            meanMenuClose: iteration.close_txt || "X",
+            meanMenuCloseSize: iteration.close_size || "18px",
+            meanMenuOpen: iteration.trigger_txt || "<span /><span /><span />",
+            meanRevealPosition: iteration.position || "right",
+            meanScreenWidth: iteration.media_size || "480",
+            meanShowChildren: iteration.show_children || true,
+            meanExpandableChildren: iteration.expand_children || true,
+            meanExpand: iteration.expand_txt || "+",
+            meanContract: iteration.contract_txt || "-",
+            meanRemoveAttrs: iteration.remove_attrs || true
+          });
+        });
+      });
+
+    }
+  };
+}(jQuery));
+;
+(function ($) {
+
+$(document).ready(function() {
+
+  // Expression to check for absolute internal links.
+  var isInternal = new RegExp("^(https?):\/\/" + window.location.host, "i");
+
+  // Attach onclick event to document only and catch clicks on all elements.
+  $(document.body).click(function(event) {
+    // Catch the closest surrounding link of a clicked element.
+    $(event.target).closest("a,area").each(function() {
+
+      var ga = Drupal.settings.googleanalytics;
+      // Expression to check for special links like gotwo.module /go/* links.
+      var isInternalSpecial = new RegExp("(\/go\/.*)$", "i");
+      // Expression to check for download links.
+      var isDownload = new RegExp("\\.(" + ga.trackDownloadExtensions + ")$", "i");
+
+      // Is the clicked URL internal?
+      if (isInternal.test(this.href)) {
+        // Skip 'click' tracking, if custom tracking events are bound.
+        if ($(this).is('.colorbox')) {
+          // Do nothing here. The custom event will handle all tracking.
+        }
+        // Is download tracking activated and the file extension configured for download tracking?
+        else if (ga.trackDownload && isDownload.test(this.href)) {
+          // Download link clicked.
+          var extension = isDownload.exec(this.href);
+          _gaq.push(["_trackEvent", "Downloads", extension[1].toUpperCase(), this.href.replace(isInternal, '')]);
+        }
+        else if (isInternalSpecial.test(this.href)) {
+          // Keep the internal URL for Google Analytics website overlay intact.
+          _gaq.push(["_trackPageview", this.href.replace(isInternal, '')]);
+        }
+      }
+      else {
+        if (ga.trackMailto && $(this).is("a[href^='mailto:'],area[href^='mailto:']")) {
+          // Mailto link clicked.
+          _gaq.push(["_trackEvent", "Mails", "Click", this.href.substring(7)]);
+        }
+        else if (ga.trackOutbound && this.href.match(/^\w+:\/\//i)) {
+          if (ga.trackDomainMode == 2 && isCrossDomain($(this).attr('hostname'), ga.trackCrossDomains)) {
+            // Top-level cross domain clicked. document.location is handled by _link internally.
+            event.preventDefault();
+            _gaq.push(["_link", this.href]);
+          }
+          else {
+            // External link clicked.
+            _gaq.push(["_trackEvent", "Outbound links", "Click", this.href]);
+          }
+        }
+      }
+    });
+  });
+
+  // Colorbox: This event triggers when the transition has completed and the
+  // newly loaded content has been revealed.
+  $(document).bind("cbox_complete", function() {
+    var href = $.colorbox.element().attr("href");
+    if (href) {
+      _gaq.push(["_trackPageview", href.replace(isInternal, '')]);
+    }
+  });
+
+});
+
+/**
+ * Check whether the hostname is part of the cross domains or not.
+ *
+ * @param string hostname
+ *   The hostname of the clicked URL.
+ * @param array crossDomains
+ *   All cross domain hostnames as JS array.
+ *
+ * @return boolean
+ */
+function isCrossDomain(hostname, crossDomains) {
+  /**
+   * jQuery < 1.6.3 bug: $.inArray crushes IE6 and Chrome if second argument is
+   * `null` or `undefined`, http://bugs.jquery.com/ticket/10076,
+   * https://github.com/jquery/jquery/commit/a839af034db2bd934e4d4fa6758a3fed8de74174
+   *
+   * @todo: Remove/Refactor in D8
+   */
+  if (!crossDomains) {
+    return false;
+  }
+  else {
+    return $.inArray(hostname, crossDomains) > -1 ? true : false;
+  }
+}
+
+})(jQuery);
+;

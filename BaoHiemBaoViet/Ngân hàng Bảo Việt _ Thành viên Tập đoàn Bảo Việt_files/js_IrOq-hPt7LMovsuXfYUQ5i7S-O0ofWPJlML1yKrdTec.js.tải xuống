@@ -1,0 +1,464 @@
+$(document).ready(function(){
+    //alert(document.body.clientWidth);
+    //alert(document.body.clientHeight);
+    var userAgent = navigator.userAgent.toLowerCase();
+    $.browser.chrome = /chrome/.test(navigator.userAgent.toLowerCase()); 
+    
+    // Is this a version of IE?
+    if($.browser.msie){
+        $('body').addClass('browserIE');
+        
+        // Add the version number
+        $('body').addClass('browserIE' + $.browser.version.substring(0,1));
+    }
+    
+    
+    // Is this a version of Chrome?
+    if($.browser.chrome){
+    
+        $('body').addClass('browserChrome');
+        
+        //Add the version number
+        userAgent = userAgent.substring(userAgent.indexOf('chrome/') +7);
+        userAgent = userAgent.substring(0,1);
+        $('body').addClass('browserChrome' + userAgent);
+        
+        // If it is chrome then jQuery thinks it's safari so we have to tell it it isn't
+        $.browser.safari = false;
+    }
+    
+    // Is this a version of Safari?
+    if($.browser.safari){
+        $('body').addClass('browserSafari');
+        
+        // Add the version number
+        userAgent = userAgent.substring(userAgent.indexOf('version/') +8);
+        userAgent = userAgent.substring(0,1);
+        $('body').addClass('browserSafari' + userAgent);
+    }
+    
+    // Is this a version of Mozilla?
+    if($.browser.mozilla){
+        
+        //Is it Firefox?
+        if(navigator.userAgent.toLowerCase().indexOf('firefox') != -1){
+            $('body').addClass('browserFirefox');
+            
+            // Add the version number
+            userAgent = userAgent.substring(userAgent.indexOf('firefox/') +8);
+            userAgent = userAgent.substring(0,1);
+            $('body').addClass('browserFirefox' + userAgent);
+        }
+        // If not then it must be another Mozilla
+        else{
+            $('body').addClass('browserMozilla');
+        }
+    }
+    
+    // Is this a version of Opera?
+    if($.browser.opera){
+        $('body').addClass('browserOpera');
+    }
+    
+    
+});
+//******************min********************/
+$(document).ready(function(){var a=navigator.userAgent.toLowerCase();$.browser.chrome=/chrome/.test(navigator.userAgent.toLowerCase());if($.browser.msie){$('body').addClass('browserIE');$('body').addClass('browserIE'+$.browser.version.substring(0,1))}if($.browser.chrome){$('body').addClass('browserChrome');a=a.substring(a.indexOf('chrome/')+7);a=a.substring(0,1);$('body').addClass('browserChrome'+a);$.browser.safari=false}if($.browser.safari){$('body').addClass('browserSafari');a=a.substring(a.indexOf('version/')+8);a=a.substring(0,1);$('body').addClass('browserSafari'+a)}if($.browser.mozilla){if(navigator.userAgent.toLowerCase().indexOf('firefox')!=-1){$('body').addClass('browserFirefox');a=a.substring(a.indexOf('firefox/')+8);a=a.substring(0,1);$('body').addClass('browserFirefox'+a)}else{$('body').addClass('browserMozilla')}}if($.browser.opera){$('body').addClass('browserOpera')}});;
+$(document).ready(function(){
+$('#linkglobal').hover(function(){
+   $('#ulglobal').show();
+});
+
+$("#ulglobal").mouseleave(function(){
+  $('#ulglobal').hide();
+ $('#linkglobal').css('background','none');
+    }).mouseenter(function(){
+     });
+
+});;
+$(document).ready(function(){
+$(".ctools-jump-menu-select option:selected").text("Các dịch vụ khác");
+});
+;
+jQuery.fn.equalHeight = function () {
+  var height = 0;
+  var maxHeight = 0;
+
+  // Store the tallest element's height
+  this.each(function () {
+    height = jQuery(this).outerHeight();
+    maxHeight = (height > maxHeight) ? height : maxHeight;
+  });
+
+  // Set element's min-height to tallest element's height
+  return this.each(function () {
+    var t = jQuery(this);
+    var minHeight = maxHeight - (t.outerHeight() - t.height());
+    var property = jQuery.browser.msie && jQuery.browser.version < 7 ? 'height' : 'min-height';
+    
+    t.css(property, minHeight + 'px');
+ });
+};
+jQuery(document).ready(function($) {
+   var maxWidth = 769;
+     if(document.body.clientWidth > maxWidth) {
+           $('#main-content, .region-sidebar-second').equalHeight();
+           $('#main-content, .region-sidebar-first').equalHeight();
+        } //else $('.menu').slideToggle('fast');
+});;
+$(document).ready(function() {
+
+/*------- Co dong ------------*/
+  $('#views-exposed-form-taxonomy-term-danh-cho-co-dong-page #edit-title').focus(function() {
+    $('#edit-title-wrapper label').hide();
+  });
+$('#views-exposed-form-taxonomy-term-danh-cho-co-dong-page #edit-title').blur(function() {
+    if ($('#edit-title').val().length == 0) {
+      $('#edit-title-wrapper label').show();
+    }
+  });
+// ngay ban hanh
+  $('#views-exposed-form-taxonomy-term-danh-cho-co-dong-page #edit-date-filter-max-datepicker-popup-0').focus(function() {
+    $('#edit-date-filter-wrapper label').hide();
+  });
+
+$('#views-exposed-form-taxonomy-term-danh-cho-co-dong-page #edit-date-filter-max-datepicker-popup-0').blur(function() {
+if ($('#edit-date-filter-max-datepicker-popup-0').val().length == 0) {
+      $('#edit-date-filter-wrapper label').show();
+    }
+  });
+
+  $('#views-exposed-form-taxonomy-term-danh-cho-co-dong-page #edit-date-filter-min-datepicker-popup-0').focus(function() {
+    $('#edit-date-filter-wrapper label').hide();
+  });
+
+$('#views-exposed-form-taxonomy-term-danh-cho-co-dong-page #edit-date-filter-min-datepicker-popup-0').blur(function() {
+    if ($('#edit-date-filter-min-datepicker-popup-0').val().length == 0) {
+      $('#edit-date-filter-wrapper label').show();
+    }
+  });
+/*-------- Tuyen dung --------------*/
+
+ $('#views-exposed-form-vi-tri-tuyen-dung-page #edit-title').focus(function() {
+    $('#edit-title-wrapper label').hide();
+  });
+$('#views-exposed-form-vi-tri-tuyen-dung-page #edit-title').blur(function() {
+    if ($('#edit-title').val().length == 0) {
+      $('#edit-title-wrapper label').show();
+    }
+  });
+
+
+});;
+$(document).ready(function() {
+	 $('#frm').submit(function(){
+
+			 var t = Drupal.t('Please enter a numeric value for loans amount.');
+			if (!validateNumber($('#khoanvay').val())) {
+				alert(t);
+                                return false;
+			}
+
+
+		//ky han
+                         var t2 = Drupal.t('Please enter a numeric value for the tenure.');
+			if (!validateNumber($('#kyhan').val())) {
+				alert(t2);
+				return false;
+			}
+		// lai suat
+
+                        var t1 = Drupal.t('Please enter a numeric value for interest rate amount.');
+			if (!validateNumber($('#laisuat').val())) {
+				alert(t1);
+				return false;
+			}
+
+
+		return true;
+   });
+});
+
+
+function validateNumber($number) {
+  var numberReg = /^[+-]?\d+(\.\d+)?([eE][+-]?\d+)?$/;
+  if( !numberReg.test( $number ) ) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+/*var message="";
+function clickIE() {if (document.all) {(message);return false;}} 
+function clickNS(e) {if (document.layers||(document.getElementById&&!document.all)) { 
+if (e.which==2||e.which==3) {(message);return false;}}}
+if (document.layers) {document.captureEvents(Event.MOUSEDOWN);
+document.onmousedown=clickNS;} 
+else{document.onmouseup=clickNS;
+document.oncontextmenu=clickIE;} 
+document.oncontextmenu=new Function("return false") */;
+$(document).ready(function() {
+	 $('#frm1').submit(function(){
+
+			 var t = Drupal.t('Please enter a numeric value for deposits amount.');
+			if (!validateNumber($('#tiengui').val())) {
+			alert(t);
+                       
+                return false;
+			}
+
+//so ngay trong ky
+            var t2 = Drupal.t('Please enter a numeric value for day in term.');
+			if (!validateNumber($('#songay').val())) {
+				alert(t2);
+				return false;
+			}
+		// lai suat
+
+            var t1 = Drupal.t('Please enter a numeric value for interest rate amount.');
+			if (!validateNumber($('#phantramls').val())) {
+				alert(t1);
+				return false;
+			}
+
+
+			var a=$('#tiengui').val();
+			var b=$('#songay').val();
+			var c=$('#phantramls').val();
+			var total = (a * b * c)/36000;
+                        //total=parseFloat(total).toFixed(0);
+                        total=number_format(total, 0, '.', ',' );
+                     	alert(Drupal.t('Interest amount total: ') + total );
+			return false;
+   });
+});
+
+
+function validateNumber($number) {
+  var numberReg = /^[+-]?\d+(\.\d+)?([eE][+-]?\d+)?$/;
+  if( !numberReg.test( $number ) ) {
+    return false;
+  } else {
+    return true;
+  }
+}
+function number_format(number, decimals, dec_point, thousands_sep) {
+    // http://kevin.vanzonneveld.net
+    // +   original by: Jonas Raoni Soares Silva (http://www.jsfromhell.com)
+    // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+    // +     bugfix by: Michael White (http://getsprink.com)
+    // +     bugfix by: Benjamin Lupton
+    // +     bugfix by: Allan Jensen (http://www.winternet.no)
+    // +    revised by: Jonas Raoni Soares Silva (http://www.jsfromhell.com)
+    // +     bugfix by: Howard Yeend
+    // +    revised by: Luke Smith (http://lucassmith.name)
+    // +     bugfix by: Diogo Resende
+    // +     bugfix by: Rival
+    // +      input by: Kheang Hok Chin (http://www.distantia.ca/)
+    // +   improved by: davook
+    // +   improved by: Brett Zamir (http://brett-zamir.me)
+    // +      input by: Jay Klehr
+    // +   improved by: Brett Zamir (http://brett-zamir.me)
+    // +      input by: Amir Habibi (http://www.residence-mixte.com/)
+    // +     bugfix by: Brett Zamir (http://brett-zamir.me)
+    // +   improved by: Theriault
+    // *     example 1: number_format(1234.56);
+    // *     returns 1: '1,235'
+    // *     example 2: number_format(1234.56, 2, ',', ' ');
+    // *     returns 2: '1 234,56'
+    // *     example 3: number_format(1234.5678, 2, '.', '');
+    // *     returns 3: '1234.57'
+    // *     example 4: number_format(67, 2, ',', '.');
+    // *     returns 4: '67,00'
+    // *     example 5: number_format(1000);
+    // *     returns 5: '1,000'
+    // *     example 6: number_format(67.311, 2);
+    // *     returns 6: '67.31'
+    // *     example 7: number_format(1000.55, 1);
+    // *     returns 7: '1,000.6'
+    // *     example 8: number_format(67000, 5, ',', '.');
+    // *     returns 8: '67.000,00000'
+    // *     example 9: number_format(0.9, 0);
+    // *     returns 9: '1'
+    // *    example 10: number_format('1.20', 2);
+    // *    returns 10: '1.20'
+    // *    example 11: number_format('1.20', 4);
+    // *    returns 11: '1.2000'
+    // *    example 12: number_format('1.2000', 3);
+    // *    returns 12: '1.200'
+    var n = !isFinite(+number) ? 0 : +number, 
+        prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+        sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+        dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+        s = '',
+        toFixedFix = function (n, prec) {
+            var k = Math.pow(10, prec);
+            return '' + Math.round(n * k) / k;
+        };
+    // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+    s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+    if (s[0].length > 3) {
+        s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+    }
+    if ((s[1] || '').length < prec) {
+        s[1] = s[1] || '';
+        s[1] += new Array(prec - s[1].length + 1).join('0');
+    }
+    return s.join(dec);
+};
+function ddtabcontent(tabinterfaceid){
+	this.tabinterfaceid=tabinterfaceid //ID of Tab Menu main container
+	this.tabs=document.getElementById(tabinterfaceid).getElementsByTagName("a") //Get all tab links within container
+	this.enabletabpersistence=true
+	this.hottabspositions=[] //Array to store position of tabs that have a "rel" attr defined, relative to all tab links, within container
+	this.currentTabIndex=0 //Index of currently selected hot tab (tab with sub content) within hottabspositions[] array
+	this.subcontentids=[] //Array to store ids of the sub contents ("rel" attr values)
+	this.revcontentids=[] //Array to store ids of arbitrary contents to expand/contact as well ("rev" attr values)
+	this.selectedClassTarget="link" //keyword to indicate which target element to assign "selected" CSS class ("linkparent" or "link")
+}
+
+ddtabcontent.getCookie=function(Name){ 
+	var re=new RegExp(Name+"=[^;]+", "i"); //construct RE to search for target name/value pair
+	if (document.cookie.match(re)) //if cookie found
+		return document.cookie.match(re)[0].split("=")[1] //return its value
+	return ""
+}
+
+ddtabcontent.setCookie=function(name, value){
+	document.cookie = name+"="+value+";path=/" //cookie value is domain wide (path=/)
+}
+
+ddtabcontent.prototype={
+
+	expandit:function(tabid_or_position){ //PUBLIC function to select a tab either by its ID or position(int) within its peers
+		this.cancelautorun() //stop auto cycling of tabs (if running)
+		var tabref=""
+		try{
+			if (typeof tabid_or_position=="string" && document.getElementById(tabid_or_position).getAttribute("rel")) //if specified tab contains "rel" attr
+				tabref=document.getElementById(tabid_or_position)
+			else if (parseInt(tabid_or_position)!=NaN && this.tabs[tabid_or_position].getAttribute("rel")) //if specified tab contains "rel" attr
+				tabref=this.tabs[tabid_or_position]
+		}
+		catch(err){alert("Invalid Tab ID or position entered!")}
+		if (tabref!="") //if a valid tab is found based on function parameter
+			this.expandtab(tabref) //expand this tab
+	},
+
+	cycleit:function(dir, autorun){ //PUBLIC function to move foward or backwards through each hot tab (tabinstance.cycleit('foward/back') )
+		if (dir=="next"){
+			var currentTabIndex=(this.currentTabIndex<this.hottabspositions.length-1)? this.currentTabIndex+1 : 0
+		}
+		else if (dir=="prev"){
+			var currentTabIndex=(this.currentTabIndex>0)? this.currentTabIndex-1 : this.hottabspositions.length-1
+		}
+		if (typeof autorun=="undefined") //if cycleit() is being called by user, versus autorun() function
+			this.cancelautorun() //stop auto cycling of tabs (if running)
+		this.expandtab(this.tabs[this.hottabspositions[currentTabIndex]])
+	},
+
+	setpersist:function(bool){ //PUBLIC function to toggle persistence feature
+			this.enabletabpersistence=bool
+	},
+
+	setselectedClassTarget:function(objstr){ //PUBLIC function to set which target element to assign "selected" CSS class ("linkparent" or "link")
+		this.selectedClassTarget=objstr || "link"
+	},
+
+	getselectedClassTarget:function(tabref){ //Returns target element to assign "selected" CSS class to
+		return (this.selectedClassTarget==("linkparent".toLowerCase()))? tabref.parentNode : tabref
+	},
+
+	urlparamselect:function(tabinterfaceid){
+		var result=window.location.search.match(new RegExp(tabinterfaceid+"=(\\d+)", "i")) //check for "?tabinterfaceid=2" in URL
+		return (result==null)? null : parseInt(RegExp.$1) //returns null or index, where index (int) is the selected tab's index
+	},
+
+	expandtab:function(tabref){
+		var subcontentid=tabref.getAttribute("rel") //Get id of subcontent to expand
+		//Get "rev" attr as a string of IDs in the format ",john,george,trey,etc," to easily search through
+		var associatedrevids=(tabref.getAttribute("rev"))? ","+tabref.getAttribute("rev").replace(/\s+/, "")+"," : ""
+		this.expandsubcontent(subcontentid)
+		this.expandrevcontent(associatedrevids)
+		for (var i=0; i<this.tabs.length; i++){ //Loop through all tabs, and assign only the selected tab the CSS class "selected"
+			this.getselectedClassTarget(this.tabs[i]).className=(this.tabs[i].getAttribute("rel")==subcontentid)? "selected" : ""
+		}
+		if (this.enabletabpersistence) //if persistence enabled, save selected tab position(int) relative to its peers
+			ddtabcontent.setCookie(this.tabinterfaceid, tabref.tabposition)
+		this.setcurrenttabindex(tabref.tabposition) //remember position of selected tab within hottabspositions[] array
+	},
+
+	expandsubcontent:function(subcontentid){
+		for (var i=0; i<this.subcontentids.length; i++){
+			var subcontent=document.getElementById(this.subcontentids[i]) //cache current subcontent obj (in for loop)
+			subcontent.style.display=(subcontent.id==subcontentid)? "block" : "none" //"show" or hide sub content based on matching id attr value
+		}
+	},
+
+	expandrevcontent:function(associatedrevids){
+		var allrevids=this.revcontentids
+		for (var i=0; i<allrevids.length; i++){ //Loop through rev attributes for all tabs in this tab interface
+			//if any values stored within associatedrevids matches one within allrevids, expand that DIV, otherwise, contract it
+			document.getElementById(allrevids[i]).style.display=(associatedrevids.indexOf(","+allrevids[i]+",")!=-1)? "block" : "none"
+		}
+	},
+
+	setcurrenttabindex:function(tabposition){ //store current position of tab (within hottabspositions[] array)
+		for (var i=0; i<this.hottabspositions.length; i++){
+			if (tabposition==this.hottabspositions[i]){
+				this.currentTabIndex=i
+				break
+			}
+		}
+	},
+
+	autorun:function(){ //function to auto cycle through and select tabs based on a set interval
+		this.cycleit('next', true)
+	},
+
+	cancelautorun:function(){
+		if (typeof this.autoruntimer!="undefined")
+			clearInterval(this.autoruntimer)
+	},
+
+	init:function(automodeperiod){
+		var persistedtab=ddtabcontent.getCookie(this.tabinterfaceid) //get position of persisted tab (applicable if persistence is enabled)
+		var selectedtab=-1 //Currently selected tab index (-1 meaning none)
+		var selectedtabfromurl=this.urlparamselect(this.tabinterfaceid) //returns null or index from: tabcontent.htm?tabinterfaceid=index
+		this.automodeperiod=automodeperiod || 0
+		for (var i=0; i<this.tabs.length; i++){
+			this.tabs[i].tabposition=i //remember position of tab relative to its peers
+			if (this.tabs[i].getAttribute("rel")){
+				var tabinstance=this
+				this.hottabspositions[this.hottabspositions.length]=i //store position of "hot" tab ("rel" attr defined) relative to its peers
+				this.subcontentids[this.subcontentids.length]=this.tabs[i].getAttribute("rel") //store id of sub content ("rel" attr value)
+				this.tabs[i].onclick=function(){
+					tabinstance.expandtab(this)
+					tabinstance.cancelautorun() //stop auto cycling of tabs (if running)
+					return false
+				}
+				if (this.tabs[i].getAttribute("rev")){ //if "rev" attr defined, store each value within "rev" as an array element
+					this.revcontentids=this.revcontentids.concat(this.tabs[i].getAttribute("rev").split(/\s*,\s*/))
+				}
+				if (selectedtabfromurl==i || this.enabletabpersistence && selectedtab==-1 && parseInt(persistedtab)==i || !this.enabletabpersistence && selectedtab==-1 && this.getselectedClassTarget(this.tabs[i]).className=="selected"){
+					selectedtab=i //Selected tab index, if found
+				}
+			}
+		} //END for loop
+		if (selectedtab!=-1) //if a valid default selected tab index is found
+			this.expandtab(this.tabs[selectedtab]) //expand selected tab (either from URL parameter, persistent feature, or class="selected" class)
+		else //if no valid default selected index found
+			this.expandtab(this.tabs[this.hottabspositions[0]]) //Just select first tab that contains a "rel" attr
+		if (parseInt(this.automodeperiod)>500 && this.hottabspositions.length>1){
+			this.autoruntimer=setInterval(function(){tabinstance.autorun()}, this.automodeperiod)
+		}
+	} //END int() function
+
+} //END Prototype assignment
+
+$(document).ready(function() {
+var countries=new ddtabcontent("countrytabs");
+countries.setpersist(true);
+countries.setselectedClassTarget("link");
+countries.init();
+});;
